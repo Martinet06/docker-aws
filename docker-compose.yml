@@ -21,21 +21,17 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    expose:
+    expose:  # Solo accesible internamente, no desde el host
       - "3000"
-    ports:
-      - "8080:3000"
-
 
   nginx:
     image: nginx:1.27-alpine
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
+    ports:  # Solo nginx expone puerto al host
       - "8080:80"
     depends_on:
       - api
 
 volumes:
   db_data:
-
